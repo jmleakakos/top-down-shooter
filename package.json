@@ -1,0 +1,22 @@
+{
+  "name": "top-down-shooter",
+  "version": "1.0.0",
+  "description": "Top-down, twin-stick shooter",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nimbus57/top-down-shooter.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nimbus57/top-down-shooter/issues"
+  },
+  "homepage": "https://github.com/nimbus57/top-down-shooter#readme",
+  "dependencies": {
+    "express": "^4.15.3"
+  }
+}
