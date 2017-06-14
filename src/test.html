@@ -3,7 +3,7 @@
 <head> 
 	<meta charset="UTF-8" />
     <title>Phaser - Making your first game, part 4</title>
-	<script type="text/javascript" src="js/phaser.min.js"></script>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/phaser/2.6.2/phaser.js"></script>
     <style type="text/css">
         body {
             margin: 0;
@@ -18,14 +18,16 @@ var game = new Phaser.Game(800, 600, Phaser.AUTO, '', { preload: preload, create
 
 function preload() {
 
-    game.load.image('sky', 'assets/sky.png');
-    game.load.image('ground', 'assets/platform.png');
-    game.load.image('star', 'assets/star.png');
-    game.load.spritesheet('dude', 'assets/dude.png', 32, 48);
-
+    game.load.image('sky', '/assets/sky.png');
+    game.load.image('ground', '/assets/platform.png');
+    game.load.image('star', '/assets/star.png');
+    game.load.spritesheet('dude', '/assets/dude.png', 32, 48);
+    game.load.spritesheet('baddie', '/assets/baddie.png', 32, 32);
 }
 
 var platforms;
+var baddie;
+var walls;
 
 function create() {
 
@@ -34,6 +36,19 @@ function create() {
 
     //  A simple background for our game
     game.add.sprite(0, 0, 'sky');
+
+    walls = game.add.group();
+    walls.enableBody = true;
+    var wallTop = walls.create(0, -27, 'ground');
+    wallTop.scale.setTo(2, 1);
+
+    var wallLeft = walls.create(5, 0, 'ground');
+    wallLeft.scale.setTo(2, 1);
+    wallLeft.angle = 90;
+
+    var wallRight = walls.create(game.width + 27, 0, 'ground');
+    wallRight.scale.setTo(2, 1);
+    wallRight.angle = 90;
 
     //  The platforms group contains the ground and the 2 ledges we can jump on
     platforms = game.add.group();
@@ -59,9 +74,31 @@ function create() {
 
     ledge.body.immovable = true;
     
+    baddie = game.add.sprite(32, 32, 'baddie');
+    baddie.animations.add('left', [0, 1], 5, true);
+    baddie.animations.add('right', [2, 3], 5, true);
+
+    game.physics.arcade.enable(baddie);
+    baddie.body.bounce.y = 0.25;
+    baddie.body.gravity.y = 300;
+    baddie.body.collideWorldBounds = true;
 }
 
+var baddieStart = false;
+
 function update() {
+  game.physics.arcade.collide(baddie, platforms);
+    
+  if(baddie.body.touching.down && !baddieStart) {
+    baddieStart = true;
+    baddie.body.velocity.x = -40;
+    baddie.animations.play('left');
+  }
+
+  if(baddie.body.touching.left) {
+    debugger;
+  }
+
 }
 
 </script>
