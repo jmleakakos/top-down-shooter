@@ -1,4 +1,9 @@
 # top-down-shooter
+
+Ignore most of the stuff in this readme for now, since I am just testing. If you start the server with `npm run start`, you should be able to go to http://localhost:3000/game for the main "game"
+
+
+
 Top-down, twin-stick shooter
 
 1. Square arena with bounds
